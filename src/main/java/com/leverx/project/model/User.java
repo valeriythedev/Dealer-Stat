@@ -10,8 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -38,8 +40,10 @@ public class User {
 
     @Column(name = "created_at")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date created_at;
+    private LocalDateTime created_at;
 
+    @ManyToOne
+    @JoinColumn(table = "roles",referencedColumnName = "id")
     @Column(name = "role")
-    private Role role;
+    private Role roles;
 }
