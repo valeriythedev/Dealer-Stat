@@ -22,7 +22,6 @@ public class Comment {
     @Column(name = "message")
     private String text;
 
-    @JoinColumn(table = "users", referencedColumnName = "id")
     @Column(name = "author_id")
     private Integer author_id;
 

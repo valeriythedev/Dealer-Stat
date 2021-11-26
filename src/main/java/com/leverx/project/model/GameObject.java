@@ -22,7 +22,6 @@ public class GameObject {
     @Column(name = "title")
     private String title;
 
-    @JoinColumn(table = "users", referencedColumnName = "id")
     @Column(name = "author_id")
     private Integer author_id;
 
@@ -34,7 +33,6 @@ public class GameObject {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updated_at;
 
-    @JoinColumn(table = "games", referencedColumnName = "id")
     @Column(name = "game_id")
     private Integer game_id;
 }
