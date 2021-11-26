@@ -7,6 +7,7 @@ import com.leverx.project.repository.UserDAO;
 import com.leverx.project.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -42,36 +43,31 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(Integer id, User user) {
-        Optional<User> updatedUser = userDAO.findById(id);
-        updatedUser.get().setPassword(user.getPassword());
-        user.setFirst_name(updatedUser.get().getFirst_name());
-        user.setLast_name(updatedUser.get().getLast_name());
-
-        user.setEmail(updatedUser.get().getEmail());
-        user.setCreated_at(updatedUser.get().getCreated_at());
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         log.info("IN UserServiceImpl update() user with id {}, {}", id, user);
         return userDAO.save(user);
     }
 
     @Override
     public Optional<User> getById(Integer id) {
-        log.info("IN UserServiceImpl getById() user with id {}", id);
-        return userDAO.findById(id);
+        Optional<User> optionalUser = userDAO.findById(id);
+        log.info("IN UserServiceImpl getById() id {}, user {} ", id, optionalUser.get());
+        return optionalUser;
     }
 
     @Override
     public User getByEmail(String email) {
-        log.info("IN UserServiceImpl getByEmail() user with email {}", email);
-        return userDAO.findByEmail(email);
+        User user = userDAO.findByEmail(email);
+        log.info("IN UserServiceImpl getByEmail() email {}, user {}", email, user);
+        return user;
     }
 
     @Override
     public User getByEmailAndPassword(String email, String password) {
-        User user = userDAO.findByEmailAndPassword(email, bCryptPasswordEncoder.encode(password));
-        log.info("IN UserServiceImpl getByEmailAndPassword() user {} : ",user);
-
-        if(user != null) {
-            if(bCryptPasswordEncoder.encode(password).equals(user.getPassword())){
+        User user = userDAO.findByEmail(email);
+        log.info("IN UserServiceImpl getByEmailAndPassword() email {}, password {},user {} : ", email, user.getPassword(), user);
+        if(email.equals(user.getEmail())){
+            if(bCryptPasswordEncoder.matches(password,user.getPassword())) {
                 return user;
             }
         }

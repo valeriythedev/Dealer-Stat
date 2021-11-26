@@ -43,7 +43,7 @@ public class AuthenticationRestController {
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthenticationRequest authenticationRequest) {
-        User user = userService.getByEmail(authenticationRequest.getEmail());
+        User user = userService.getByEmailAndPassword(authenticationRequest.getEmail(), authenticationRequest.getPassword());
 
         if(user == null) {
             throw new UsernameNotFoundException("User with email: "+ authenticationRequest.getEmail() + " and password "+ authenticationRequest.getPassword() +" not found!");
