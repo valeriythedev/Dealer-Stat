@@ -1,4 +1,4 @@
-package com.leverx.project.rest;
+package com.leverx.project.rest.admin;
 
 import com.leverx.project.model.User;
 import com.leverx.project.service.impl.UserServiceImpl;
@@ -6,7 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,7 +32,7 @@ public class AdminUserController {
     }
 
     @PostMapping("/{roleId}")
-    public ResponseEntity<User> create(@RequestBody User user, @PathVariable Integer roleId) {
+    public ResponseEntity<User> create(@RequestBody User user, @PathVariable("roleId") Integer roleId) {
 
         if(roleId > 3 || roleId < 1 || user == null) { return new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
 
@@ -58,7 +65,7 @@ public class AdminUserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<User>> getById(@PathVariable Integer id) {
+    public ResponseEntity<Optional<User>> getById(@PathVariable("id") Integer id) {
 
         List<User> userList = userServiceImpl.getAll();
 

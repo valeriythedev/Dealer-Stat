@@ -1,4 +1,4 @@
-package com.leverx.project.rest;
+package com.leverx.project.rest.authentication;
 
 import com.leverx.project.dto.AuthenticationRequest;
 import com.leverx.project.model.User;
@@ -10,8 +10,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,9 +26,7 @@ consumes = MediaType.APPLICATION_JSON_VALUE)
 public class AuthenticationRestController {
 
     private final AuthenticationManager authenticationManager;
-
     private final JwtTokenProvider jwtTokenProvider;
-
     private final UserService userService;
 
     @Autowired
@@ -42,11 +43,11 @@ public class AuthenticationRestController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody AuthenticationRequest authenticationRequest) {
+    public ResponseEntity<Map<Object, Object>> login(@RequestBody AuthenticationRequest authenticationRequest) {
         User user = userService.getByEmailAndPassword(authenticationRequest.getEmail(), authenticationRequest.getPassword());
 
         if(user == null) {
-            throw new UsernameNotFoundException("User with email: "+ authenticationRequest.getEmail() + " and password "+ authenticationRequest.getPassword() +" not found!");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword()));
@@ -57,6 +58,6 @@ public class AuthenticationRestController {
         response.put("email", authenticationRequest.getEmail());
         response.put("token", token);
 
-        return new ResponseEntity(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
