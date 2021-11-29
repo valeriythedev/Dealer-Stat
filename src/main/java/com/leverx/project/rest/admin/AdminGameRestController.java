@@ -22,12 +22,12 @@ import java.util.Optional;
 @RequestMapping(value = "/api/admin/games/",
         produces = MediaType.APPLICATION_JSON_VALUE,
         consumes = MediaType.APPLICATION_JSON_VALUE)
-public class AdminGameController {
+public class AdminGameRestController {
 
     private final GameService gameService;
 
     @Autowired
-    public AdminGameController(GameService gameService) {
+    public AdminGameRestController(GameService gameService) {
         this.gameService = gameService;
     }
 
