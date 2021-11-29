@@ -21,8 +21,8 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "api/auth/",
-produces = MediaType.APPLICATION_JSON_VALUE,
-consumes = MediaType.APPLICATION_JSON_VALUE)
+    produces = MediaType.APPLICATION_JSON_VALUE,
+    consumes = MediaType.APPLICATION_JSON_VALUE)
 public class AuthenticationRestController {
 
     private final AuthenticationManager authenticationManager;
