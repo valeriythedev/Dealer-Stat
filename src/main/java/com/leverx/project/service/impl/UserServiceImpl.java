@@ -7,12 +7,13 @@ import com.leverx.project.repository.UserDAO;
 import com.leverx.project.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -43,9 +44,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(Integer id, User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        Optional<User> updatedUser = userDAO.findById(id);
+        updatedUser.get().setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         log.info("IN UserServiceImpl update() user with id {}, {}", id, user);
-        return userDAO.save(user);
+        return userDAO.save(updatedUser.get());
     }
 
     @Override
