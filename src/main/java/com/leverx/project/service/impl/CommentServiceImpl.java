@@ -3,8 +3,8 @@ package com.leverx.project.service.impl;
 import com.leverx.project.model.Comment;
 import com.leverx.project.model.User;
 import com.leverx.project.repository.CommentDAO;
-import com.leverx.project.repository.UserDAO;
 import com.leverx.project.service.CommentService;
+import com.leverx.project.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,17 +19,17 @@ import java.util.Optional;
 public class CommentServiceImpl implements CommentService {
 
     private final CommentDAO commentDAO;
-    private final UserDAO userDAO;
+    private final UserService userService;
 
     @Autowired
-    public CommentServiceImpl(CommentDAO commentDAO, UserDAO userDAO) {
+    public CommentServiceImpl(CommentDAO commentDAO, UserService userService) {
         this.commentDAO = commentDAO;
-        this.userDAO = userDAO;
+        this.userService = userService;
     }
 
     @Override
     public Comment create(Integer id, Comment comment) {
-        Optional<User> optionalUser = userDAO.findById(id);
+        Optional<User> optionalUser = userService.getById(id);
         List<User> userList = new ArrayList<>();
         userList.add(optionalUser.get());
         comment.setUsers(userList);

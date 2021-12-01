@@ -8,10 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/guests/",
@@ -76,17 +81,5 @@ public class CommentRestController {
         commentService.delete(id);
 
         return new ResponseEntity(HttpStatus.OK);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Optional<Comment>> getById(@PathVariable("id") Integer id) {
-
-        List<Comment> commentList = commentService.getAll();
-
-        if(commentList.stream().noneMatch(p -> p.getId().equals(id))) { return new ResponseEntity<>(HttpStatus.NOT_FOUND); }
-
-        Optional<Comment> optionalComment = commentService.getById(id);
-
-        return new ResponseEntity<>(optionalComment, HttpStatus.OK);
     }
 }
