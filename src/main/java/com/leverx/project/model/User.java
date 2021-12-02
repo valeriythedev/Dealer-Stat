@@ -14,6 +14,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
@@ -46,8 +48,10 @@ public class User {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime created_at;
 
-    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles",
+            joinColumns = {@JoinColumn(name = "users_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "roles_id", referencedColumnName = "id")})
     @JsonIgnore
     private List<Role> roles;
 
@@ -55,6 +59,11 @@ public class User {
     @Fetch(value = FetchMode.SUBSELECT)
     @JsonIgnore
     private List<Comment> comments;
+
+    @ManyToMany(mappedBy = "authorsList", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    @JsonIgnore
+    private List<Comment> authors;
 
     @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
