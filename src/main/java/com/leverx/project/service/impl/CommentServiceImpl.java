@@ -1,5 +1,6 @@
 package com.leverx.project.service.impl;
 
+import com.leverx.project.dto.CommentDTO;
 import com.leverx.project.model.Comment;
 import com.leverx.project.model.User;
 import com.leverx.project.repository.CommentDAO;
@@ -28,11 +29,19 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment create(Integer id, Comment comment) {
+    public Comment create(Integer id, CommentDTO commentDTO) {
+        Comment comment = commentDTO.toComment(commentDTO);
+
         Optional<User> optionalUser = userService.getById(id);
         List<User> userList = new ArrayList<>();
         userList.add(optionalUser.get());
         comment.setUsers(userList);
+
+        Optional<User> optionalAuthor = userService.getById(commentDTO.getAuthor_id());
+        List<User> authorList = new ArrayList<>();
+        authorList.add(optionalAuthor.get());
+        comment.setAuthorsList(authorList);
+
         comment.setCreated_at(LocalDateTime.now());
         log.info("IN CommentServiceImpl create() user id {}, comment {}", id, comment);
         return commentDAO.save(comment);
@@ -63,6 +72,13 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> getAllCommentsById(Integer id) {
         List<Comment> commentsList = commentDAO.findAllCommentsById(id);
         log.info("IN CommentServiceImpl getAllCommentsById() user id {}", id);
+        return commentsList;
+    }
+
+    @Override
+    public List<Comment> getAllCommentsByAuthorId(Integer authorId) {
+        List<Comment> commentsList = commentDAO.findAllCommentsByAuthorId(authorId);
+        log.info("IN CommentServiceImpl getAllCommentsByAuthorId() id {}", authorId);
         return commentsList;
     }
 

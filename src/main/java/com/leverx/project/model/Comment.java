@@ -47,6 +47,13 @@ public class Comment {
             inverseJoinColumns = {@JoinColumn(name = "users_id", referencedColumnName = "id")})
     private List<User> users;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "comments_authors",
+            joinColumns = {@JoinColumn(name = "comment_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "author_id", referencedColumnName = "id")})
+    @JsonIgnore
+    private List<User> authorsList;
+
     @Override
     public String toString() {
         return "Comment{" +

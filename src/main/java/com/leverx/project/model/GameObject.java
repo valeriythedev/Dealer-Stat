@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -50,9 +48,11 @@ public class GameObject {
             inverseJoinColumns = {@JoinColumn(name = "users_id", referencedColumnName = "id")})
     private List<User> users;
 
-    @ManyToMany(mappedBy = "gameObjects", fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JsonIgnore
+    @JoinTable(name = "games_gameobjects",
+            joinColumns = {@JoinColumn(name = "game_objects_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "games_id", referencedColumnName = "id")})
     private List<Game> games;
 
     @Override

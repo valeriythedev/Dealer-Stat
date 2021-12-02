@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +13,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.List;
@@ -31,11 +31,9 @@ public class Game {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "games",fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     @JsonIgnore
-    @JoinTable(name = "games_gameobjects",
-            joinColumns = {@JoinColumn(name = "games_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "game_objects_id", referencedColumnName = "id")})
     private List<GameObject> gameObjects;
 
     @Override
