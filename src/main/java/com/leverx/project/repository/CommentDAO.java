@@ -10,6 +10,9 @@ import java.util.List;
 @Repository
 public interface CommentDAO extends JpaRepository<Comment, Integer> {
 
-    @Query( value = "select c FROM Comment c JOIN c.users u WHERE u.id = :userId" )
+    @Query(value = "select c FROM Comment c JOIN c.users u WHERE u.id = :userId" )
     List<Comment> findAllCommentsById(Integer userId);
+
+    @Query(value = "select c FROM Comment c JOIN c.authorsList u WHERE u.id = :authorId")
+    List<Comment> findAllCommentsByAuthorId(Integer authorId);
 }

@@ -1,5 +1,6 @@
 package com.leverx.project.service;
 
+import com.leverx.project.dto.CommentDTO;
 import com.leverx.project.model.Comment;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.Optional;
 
 public interface CommentService {
 
-    Comment create(Integer userId, Comment comment);
+    Comment create(Integer userId, CommentDTO commentDTO);
 
     Comment update(Integer id,Comment comment);
 
@@ -16,6 +17,8 @@ public interface CommentService {
     void delete(Integer id);
 
     List<Comment> getAllCommentsById(Integer id);
+
+    List<Comment> getAllCommentsByAuthorId(Integer authorId);
 
     List<Comment> getAll();
 }
