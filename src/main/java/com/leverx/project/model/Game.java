@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -31,10 +32,15 @@ public class Game {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "games",fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "games", fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     @JsonIgnore
     private List<GameObject> gameObjects;
+
+    public Game(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     @Override
     public String toString() {
@@ -42,5 +48,18 @@ public class Game {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Game game = (Game) o;
+        return id.equals(game.id) && Objects.equals(name, game.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }

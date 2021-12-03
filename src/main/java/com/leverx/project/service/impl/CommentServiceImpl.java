@@ -48,7 +48,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment update(Integer id,Comment comment) {
+    public Comment update(Integer id, Comment comment) {
         Optional<Comment> optionalComment = commentDAO.findById(id);
         optionalComment.get().setApproved(comment.isApproved());
         log.info("IN CommentServiceImpl update() comment with id {}, {}", id, optionalComment);

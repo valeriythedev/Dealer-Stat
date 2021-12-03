@@ -43,82 +43,72 @@ public class CommentRestController {
     public ResponseEntity<Optional<Comment>> create(@PathVariable("userId") Integer userId,
                                                     @RequestHeader(value = "AUTHORIZATION") String bearerToken,
                                                     @RequestBody CommentDTO commentDTO) {
-
         String token = bearerToken.substring(7, bearerToken.length());
-
         User user = userService.getByEmail(jwtTokenProvider.getEmail(token));
-
-        if(user == null) { return new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
-
+        if(user == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         List<User> userList = userService.getAll();
-
-        if(userList.stream().noneMatch(p -> p.getId().equals(userId))) { return new ResponseEntity<>(HttpStatus.NOT_FOUND); }
-
-        if(commentDTO == null) { return new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
-
+        if(userList.stream().noneMatch(p -> p.getId().equals(userId))) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        if(commentDTO == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         commentDTO.setAuthor_id(user.getId());
-
         commentService.create(userId, commentDTO);
-
         return new ResponseEntity(commentDTO, HttpStatus.OK);
     }
 
     @GetMapping("/{userId}")
     public ResponseEntity<List<Comment>> getCommentsByUserId(@PathVariable("userId") Integer userId) {
-
         List<User> userList = userService.getAll();
-
-        if(userList.stream().noneMatch(p -> p.getId().equals(userId))) { return new ResponseEntity<>(HttpStatus.NOT_FOUND); }
-
+        if(userList.stream().noneMatch(p -> p.getId().equals(userId))) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         List<Comment> commentList = commentService.getAllCommentsById(userId);
-
-        if(commentList.isEmpty()) { return new ResponseEntity<>(HttpStatus.NOT_FOUND); }
-
+        if(commentList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(commentList, HttpStatus.OK);
     }
 
     @GetMapping("/my")
     public ResponseEntity<List<Comment>> getAllMyComments(@RequestHeader(value = "AUTHORIZATION") String bearerToken) {
-
         String token = bearerToken.substring(7, bearerToken.length());
-
         User user = userService.getByEmail(jwtTokenProvider.getEmail(token));
-
-        if(user == null) { return new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
-
+        if(user == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         List<Comment> commentList = commentService.getAllCommentsByAuthorId(user.getId());
-
-        if(commentList.isEmpty()) { return new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
-
+        if(commentList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(commentList, HttpStatus.OK);
     }
 
     @GetMapping("")
     public ResponseEntity<List<Comment>> getAll() {
-
         List<Comment> commentsList = commentService.getAll();
-
-        if(commentsList.isEmpty()) { return new ResponseEntity<>(HttpStatus.NOT_FOUND); }
-
+        if(commentsList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(commentsList, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable("id") Integer id,
                                  @RequestHeader(value = "AUTHORIZATION") String bearerToken) {
-
         String token = bearerToken.substring(7, bearerToken.length());
-
         User user = userService.getByEmail(jwtTokenProvider.getEmail(token));
-
-        if(user == null) { return new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
-
+        if(user == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         List<Comment> commentList = commentService.getAllCommentsByAuthorId(user.getId());
-
-        if(commentList.stream().noneMatch(p -> p.getId().equals(id))) { return new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
-
+        if(commentList.stream().noneMatch(p -> p.getId().equals(id))) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         commentService.delete(id);
-
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -47,105 +47,100 @@ public class TraderRestController {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
+    @PatchMapping("/forgot")
+    public ResponseEntity<User> updatePassword(@RequestHeader(value = "AUTHORIZATION") String bearerToken, @RequestBody User user) {
+        String token = bearerToken.substring(7, bearerToken.length());
+        User userFromToken = userService.getByEmail(jwtTokenProvider.getEmail(token));
+        if(userFromToken == null || user == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        User updatedUser = userService.update(userFromToken.getId(), user);
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+    }
+
     @PostMapping("/objects/")
     public ResponseEntity<GameObject> create(@RequestHeader(value = "AUTHORIZATION") String bearerToken, @RequestBody GameObjectDTO gameObjectDTO) {
-
-        if(gameObjectDTO == null) { return new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
-
+        if(gameObjectDTO == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         List<Game> gameList = gameService.getAll();
-
         if(gameList.stream().noneMatch(p -> p.getId().equals(gameObjectDTO.getGame_id()))) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
         String token = bearerToken.substring(7, bearerToken.length());
-
         User user = userService.getByEmail(jwtTokenProvider.getEmail(token));
-
-        if(user == null) { return new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
-
+        if(user == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         gameObjectDTO.setAuthor_id(user.getId());
-
         GameObject gameObject = gameObjectService.create(gameObjectDTO);
-
         return new ResponseEntity<>(gameObject, HttpStatus.OK);
     }
 
     @PatchMapping("/objects/{id}")
     public ResponseEntity<GameObject> update(@PathVariable("id") Integer id,@RequestHeader(value = "AUTHORIZATION") String bearerToken, @RequestBody GameObject gameObject) {
-
         String token = bearerToken.substring(7, bearerToken.length());
-
         User user = userService.getByEmail(jwtTokenProvider.getEmail(token));
-
-        if(user == null) { return new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
-
+        if(user == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         List<GameObject> gameObjectList = gameObjectService.getAllGameObjectsById(user.getId());
-
-        if(gameObjectList.isEmpty()) { return new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
-
+        if(gameObjectList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         GameObject updatedGameObject = gameObjectService.update(id, gameObject);
-
         return new ResponseEntity<>(updatedGameObject, HttpStatus.OK);
     }
 
     @DeleteMapping("/objects/{id}")
     public ResponseEntity delete(@PathVariable("id") Integer id, @RequestHeader(value = "AUTHORIZATION") String bearerToken) {
-
         String token = bearerToken.substring(7, bearerToken.length());
-
         User user = userService.getByEmail(jwtTokenProvider.getEmail(token));
-
-        if(user == null) { return new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
-
+        if(user == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         List<GameObject> gameObjectList = gameObjectService.getAllGameObjectsById(user.getId());
-
-        if(gameObjectList.isEmpty()) { return new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
-
+        if(gameObjectList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         gameObjectService.delete(id);
-
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/objects/my")
     public ResponseEntity<List<GameObject>> getAllGameObjectsById(@RequestHeader(value = "AUTHORIZATION") String bearerToken) {
-
         String token = bearerToken.substring(7, bearerToken.length());
-
         User user = userService.getByEmail(jwtTokenProvider.getEmail(token));
-
-        if(user == null) { return new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
-
+        if(user == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         List<GameObject> gameObjectList = gameObjectService.getAllGameObjectsById(user.getId());
-
-        if(gameObjectList.isEmpty()) { return new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
-
+        if(gameObjectList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(gameObjectList, HttpStatus.OK);
     }
 
     @GetMapping("/comments/my")
     public ResponseEntity<List<Comment>> getAllCommentsById(@RequestHeader(value = "AUTHORIZATION") String bearerToken) {
-
         String token = bearerToken.substring(7, bearerToken.length());
-
         User user = userService.getByEmail(jwtTokenProvider.getEmail(token));
-
-        if(user == null) { return new ResponseEntity<>(HttpStatus.BAD_REQUEST); }
-
+        if(user == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         List<Comment> commentList = commentService.getAllCommentsById(user.getId());
-
-        if(commentList.isEmpty()) { return new ResponseEntity<>(HttpStatus.NOT_FOUND); }
-
+        if(commentList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(commentList, HttpStatus.OK);
     }
 
     @GetMapping("/games/")
     public ResponseEntity<List<Game>> getAllGames() {
-
         List<Game> gameList = gameService.getAll();
-
-        if(gameList.isEmpty()) { return new ResponseEntity<>(HttpStatus.NOT_FOUND); }
-
+        if(gameList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(gameList, HttpStatus.OK);
     }
 }

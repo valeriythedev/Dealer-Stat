@@ -23,5 +23,4 @@ public class GameObjectDTO {
         gameObject.setUpdated_at(gameObjectDTO.getUpdated_at());
         return gameObject;
     }
-
 }

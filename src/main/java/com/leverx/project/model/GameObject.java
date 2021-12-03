@@ -64,4 +64,9 @@ public class GameObject {
                 ", updated_at=" + updated_at +
                 '}';
     }
+
+    public GameObject(Integer id, String title) {
+        this.id = id;
+        this.title = title;
+    }
 }

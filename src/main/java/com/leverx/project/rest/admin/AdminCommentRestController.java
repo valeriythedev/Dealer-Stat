@@ -31,35 +31,30 @@ public class AdminCommentRestController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<Comment> update(@PathVariable("id") Integer id, @RequestBody Comment comment) {
-
         List<Comment> commentList = commentService.getAll();
-
-        if(commentList.stream().noneMatch(p -> p.getId().equals(id))) { return new ResponseEntity<>(HttpStatus.NOT_FOUND); }
-
+        if(commentList.stream().noneMatch(p -> p.getId().equals(id))) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         Comment updatedComment = commentService.update(id, comment);
-
         return new ResponseEntity<>(updatedComment, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Comment>> getById(@PathVariable("id") Integer id) {
-
         List<Comment> commentList = commentService.getAll();
-
-        if(commentList.stream().noneMatch(p -> p.getId().equals(id))) { return new ResponseEntity<>(HttpStatus.NOT_FOUND); }
-
+        if(commentList.stream().noneMatch(p -> p.getId().equals(id))) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         Optional<Comment> optionalComment = commentService.getById(id);
-
         return new ResponseEntity<>(optionalComment, HttpStatus.OK);
     }
 
     @GetMapping("")
     public ResponseEntity<List<Comment>> getAll() {
-
         List<Comment> commentsList = commentService.getAll();
-
-        if(commentsList.isEmpty()) { return new ResponseEntity<>(HttpStatus.NOT_FOUND); }
-
+        if(commentsList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(commentsList, HttpStatus.OK);
     }
 }

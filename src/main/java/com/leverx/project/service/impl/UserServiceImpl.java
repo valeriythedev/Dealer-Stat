@@ -35,8 +35,9 @@ public class UserServiceImpl implements UserService {
         Optional<Role> optionalRole = roleDAO.findById(roleId);
         List<Role> roleList = new ArrayList<>();
         roleList.add(optionalRole.get());
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRoles(roleList);
+
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setCreated_at(LocalDateTime.now());
         log.info("IN UserServiceImpl create() user {}", user);
         return userDAO.save(user);
