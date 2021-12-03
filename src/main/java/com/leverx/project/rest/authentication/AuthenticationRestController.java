@@ -45,19 +45,14 @@ public class AuthenticationRestController {
     @PostMapping("/login")
     public ResponseEntity<Map<Object, Object>> login(@RequestBody AuthenticationRequest authenticationRequest) {
         User user = userService.getByEmailAndPassword(authenticationRequest.getEmail(), authenticationRequest.getPassword());
-
         if(user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword()));
-
         String token = jwtTokenProvider.createToken(authenticationRequest.getEmail(), user.getRoles());
-
         Map<Object, Object> response = new HashMap<>();
         response.put("email", authenticationRequest.getEmail());
         response.put("token", token);
-
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

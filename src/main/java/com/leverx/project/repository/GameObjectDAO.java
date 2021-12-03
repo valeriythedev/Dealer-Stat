@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface GameObjectDAO extends JpaRepository<GameObject, Integer> {
 
-    @Query( value = "select c FROM GameObject c JOIN c.users u WHERE u.id = :userId" )
+    @Query(value = "select c FROM GameObject c JOIN c.users u WHERE u.id = :userId")
     List<GameObject> findAllGameObjectsById(Integer userId);
 }

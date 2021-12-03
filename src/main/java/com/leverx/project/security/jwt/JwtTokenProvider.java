@@ -75,7 +75,7 @@ public class JwtTokenProvider {
 
     public String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
-        if(bearerToken != null && bearerToken.startsWith("Bearer_")) {
+        if (bearerToken != null && bearerToken.startsWith("Bearer_")) {
             return bearerToken.substring(7, bearerToken.length());
         }
         return null;
@@ -85,7 +85,7 @@ public class JwtTokenProvider {
         try {
             Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
 
-            if(claimsJws.getBody().getExpiration().before(new Date())) {
+            if (claimsJws.getBody().getExpiration().before(new Date())) {
                 return false;
             }
 

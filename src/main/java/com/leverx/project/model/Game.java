@@ -31,10 +31,15 @@ public class Game {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "games",fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "games", fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     @JsonIgnore
     private List<GameObject> gameObjects;
+
+    public Game(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     @Override
     public String toString() {

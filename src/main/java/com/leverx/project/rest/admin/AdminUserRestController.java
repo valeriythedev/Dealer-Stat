@@ -30,25 +30,21 @@ public class AdminUserRestController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable("id") Integer id) {
-
         List<User> userList = userService.getAll();
-
-        if(userList.stream().noneMatch(p -> p.getId().equals(id))) { return new ResponseEntity<>(HttpStatus.NOT_FOUND); }
-
+        if(userList.stream().noneMatch(p -> p.getId().equals(id))) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         userService.delete(id);
-
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<User>> getById(@PathVariable("id") Integer id) {
-
         List<User> userList = userService.getAll();
-
-        if(userList.stream().noneMatch(p -> p.getId().equals(id))) { return new ResponseEntity<>(HttpStatus.NOT_FOUND); }
-
+        if(userList.stream().noneMatch(p -> p.getId().equals(id))) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         Optional<User> optionalUser = userService.getById(id);
-
         return new ResponseEntity<>(optionalUser, HttpStatus.OK);
     }
 

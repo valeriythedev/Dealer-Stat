@@ -31,7 +31,7 @@ public class Role {
     @Column(name = "role")
     private String name;
 
-    @ManyToMany(mappedBy = "roles",fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     @JsonIgnore
     private List<User> users;
