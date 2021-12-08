@@ -13,12 +13,14 @@
 * Database: [PostgreSQL](https://www.postgresql.org/)
 * Frameworks: [Spring Boot](https://spring.io/projects/spring-boot)
 
+
 ##Build Application:
 ```
   1. Go to the application.properties and write your DB configuration and free port
     for starting embedded Tomcat.
   2. Press SHIFT+F10 and boot application
 ```
+
 ##How it works:
   1. Go to the postman and send request to register new account
 
@@ -71,6 +73,8 @@
 
 
 ##Rest Endpoints:
+
+
 # Authentication
 
 `url which available without authentication`
@@ -84,9 +88,13 @@ Login
 ```
   POST 'http://localhost:8080/api/auth/login'
 ```
+
+
 # Admin-URL
 
 `url which available only for users with role 'ADMIN'`
+
+
 
 #Comments
 Update comment `Approve comment`
@@ -103,7 +111,11 @@ Get all comments
 ```
   GET 'http://localhost:8080/api/admin/comments/'
 ```
+
+
 #Games
+
+
 Create game
 ```
   POST 'http://localhost:8080/api/admin/games/'
@@ -124,7 +136,11 @@ Get all games
 ```
   GET 'http://localhost:8080/api/admin/games/'
 ```
+
+
 #Users
+
+
 Delete user
 ```
   DELETE 'http://localhost:8080/api/admin/users/{id}'
@@ -138,7 +154,9 @@ Get all users
   GET 'http://localhost:8080/api/admin/users/'
 ```
 
+
 # Guest-URL
+
 
 `url which available only for users with role 'GUEST'`
 
@@ -163,7 +181,9 @@ Delete comment
   DELETE 'http://localhost:8080/api/guests/{id}'
 ```
 
+
 # Trader-URL
+
 
 `url which available only for users with role 'TRADER'`
 
