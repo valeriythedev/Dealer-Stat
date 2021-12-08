@@ -1,4 +1,4 @@
-#**LeverX-Course-Project**
+# **LeverX-Course-Project**
 
 `@author Valeriy Liashuk`
 
@@ -13,13 +13,13 @@
 * Database: [PostgreSQL](https://www.postgresql.org/)
 * Frameworks: [Spring Boot](https://spring.io/projects/spring-boot)
 
-##Build Application:
+## Build Application:
 ```
   1. Go to the application.properties and write your DB configuration and free port
     for starting embedded Tomcat.
   2. Press SHIFT+F10 and boot application
 ```
-##How it works:
+## How it works:
   1. Go to the postman and send request to register new account
 
   ![img_2.png](readme-images/img_2.png)
@@ -70,7 +70,7 @@
   ![img_12.png](readme-images/img_12.png)
 
 
-##Rest Endpoints:
+## Rest Endpoints:
 
 
 # Authentication
@@ -90,7 +90,7 @@ Login
 
 `url which available only for users with role 'ADMIN'`
 
-#Comments
+# Comments
 Update comment `Approve comment`
 ```
   PATCH 'http://localhost:8080/api/admin/comments/{id}'
@@ -105,7 +105,7 @@ Get all comments
 ```
   GET 'http://localhost:8080/api/admin/comments/'
 ```
-#Games
+# Games
 Create game
 ```
   POST 'http://localhost:8080/api/admin/games/'
@@ -126,7 +126,7 @@ Get all games
 ```
   GET 'http://localhost:8080/api/admin/games/'
 ```
-#Users
+# Users
 Delete user
 ```
   DELETE 'http://localhost:8080/api/admin/users/{id}'
