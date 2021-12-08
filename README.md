@@ -2,7 +2,7 @@
 
 `@author Valeriy Liashuk`
 
-## Requirements:
+# Requirements:
 * Programming language: [Java & JDK 15](https://www.java.com)<a href="https://www.java.com" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="40" height="40"/> </a>
 * Build system: [Maven](https://maven.apache.org/)
 * Control system: [Git](https://git-scm.com/)
@@ -14,14 +14,14 @@
 * Frameworks: [Spring Boot](https://spring.io/projects/spring-boot)
 
 
-##Build Application:
+#Build Application:
 ```
   1. Go to the application.properties and write your DB configuration and free port
     for starting embedded Tomcat.
   2. Press SHIFT+F10 and boot application
 ```
 
-##How it works:
+#How it works:
   1. Go to the postman and send request to register new account
 
   ![img_2.png](readme-images/img_2.png)
@@ -72,7 +72,7 @@
   ![img_12.png](readme-images/img_12.png)
 
 
-##Rest Endpoints:
+#Rest Endpoints:
 
 
 # Authentication
