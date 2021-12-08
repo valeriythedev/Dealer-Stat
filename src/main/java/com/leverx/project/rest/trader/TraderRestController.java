@@ -85,7 +85,7 @@ public class TraderRestController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         List<GameObject> gameObjectList = gameObjectService.getAllGameObjectsById(user.getId());
-        if(gameObjectList.isEmpty()) {
+        if(gameObjectList.stream().noneMatch(p -> p.getId().equals(id))) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         GameObject updatedGameObject = gameObjectService.update(id, gameObject);
@@ -100,7 +100,7 @@ public class TraderRestController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         List<GameObject> gameObjectList = gameObjectService.getAllGameObjectsById(user.getId());
-        if(gameObjectList.isEmpty()) {
+        if(gameObjectList.stream().noneMatch(p -> p.getId().equals(id))) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         gameObjectService.delete(id);
