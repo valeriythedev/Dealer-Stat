@@ -22,10 +22,10 @@
 #How it works:
   1. Go to the postman and send request to register new account
 
-  ![img_2.png](images/img_2.png)
+  ![img_2.png](readme-images/img_2.png)
   
   Body of registered account should look like:
-  ![img_1.png](images/img_1.png)
+  ![img_1.png](readme-images/img_1.png)
 
   In url after "/" you should choose role of your person:
   
@@ -37,37 +37,37 @@
 
   If you send good request server give you status 200, and your account info
   
-  ![img_4.png](images/img_4.png)
+  ![img_4.png](readme-images/img_4.png)
 
-  ![img_5.png](images/img_5.png)
+  ![img_5.png](readme-images/img_5.png)
 
   2. Try to login with your account
 
-  ![img_6.png](images/img_6.png)
+  ![img_6.png](readme-images/img_6.png)
 
   Body of auth request should look like:
 
-  ![img_7.png](images/img_7.png)
+  ![img_7.png](readme-images/img_7.png)
 
   If you send good request server give you status 200, and your generated token
 
-  ![img_8.png](images/img_8.png)
+  ![img_8.png](readme-images/img_8.png)
 
   3. Copy your token and put it to header named "Authorization"
 
-  ![img_9.png](images/img_9.png)
+  ![img_9.png](readme-images/img_9.png)
 
   Your token should have string "Bearer_" at start of it
 
   4. Try to make any request which allowed to your role for example i will choose this one:
 
-  ![img_10.png](images/img_10.png)
+  ![img_10.png](readme-images/img_10.png)
 
   If all fine server give you status 200, and return List of available games
 
-  ![img_11.png](images/img_11.png)
+  ![img_11.png](readme-images/img_11.png)
 
-  ![img_12.png](images/img_12.png)
+  ![img_12.png](readme-images/img_12.png)
 
 
 #Rest Endpoints:
