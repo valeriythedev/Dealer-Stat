@@ -1,4 +1,4 @@
-#LeverX-Course-Project
+#**LeverX-Course-Project**
 
 `@author Valeriy Liashuk`
 
@@ -13,13 +13,13 @@
 * Database: [PostgreSQL](https://www.postgresql.org/)
 * Frameworks: [Spring Boot](https://spring.io/projects/spring-boot)
 
-#Build Application:
+##Build Application:
 ```
   1. Go to the application.properties and write your DB configuration and free port
     for starting embedded Tomcat.
   2. Press SHIFT+F10 and boot application
 ```
-#How it works:
+##How it works:
   1. Go to the postman and send request to register new account
 
   ![img_2.png](readme-images/img_2.png)
@@ -70,7 +70,9 @@
   ![img_12.png](readme-images/img_12.png)
 
 
-#Rest Endpoints:
+##Rest Endpoints:
+
+
 # Authentication
 
 `url which available without authentication`
