@@ -19,6 +19,9 @@
         <json.properties>2.12.3</json.properties>
         <postgres.properties>42.3.1</postgres.properties>
         <jwt.properties>0.9.1</jwt.properties>
+        <spring.security.test.properties>5.3.12.RELEASE</spring.security.test.properties>
+        <junit.jupiter.api.properties>5.8.2</junit.jupiter.api.properties>
+        <junit.properties>4.13.2</junit.properties>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
     </properties>
@@ -48,19 +51,19 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
-            <version>5.3.12.RELEASE</version>
+            <version>${spring.security.test.properties}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.8.2</version>
+            <version>${junit.jupiter.api.properties}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.2</version>
+            <version>${junit.properties}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
