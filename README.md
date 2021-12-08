@@ -1,4 +1,4 @@
-##LeverX-Course-Project
+# **LeverX-Course-Project**
 
 `@author Valeriy Liashuk`
 
@@ -14,14 +14,14 @@
 * Frameworks: [Spring Boot](https://spring.io/projects/spring-boot)
 
 
-#Build Application:
+# Build Application:
 ```
   1. Go to the application.properties and write your DB configuration and free port
     for starting embedded Tomcat.
   2. Press SHIFT+F10 and boot application
 ```
 
-#How it works:
+# How it works:
   1. Go to the postman and send request to register new account
 
   ![img_2.png](readme-images/img_2.png)
@@ -72,7 +72,7 @@
   ![img_12.png](readme-images/img_12.png)
 
 
-#Rest Endpoints:
+# Rest Endpoints:
 
 
 # Authentication
@@ -96,7 +96,7 @@ Login
 
 
 
-#Comments
+# Comments
 Update comment `Approve comment`
 ```
   PATCH 'http://localhost:8080/api/admin/comments/{id}'
@@ -113,7 +113,7 @@ Get all comments
 ```
 
 
-#Games
+# Games
 
 
 Create game
@@ -138,7 +138,7 @@ Get all games
 ```
 
 
-#Users
+# Users
 
 
 Delete user
